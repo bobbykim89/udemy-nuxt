@@ -3,35 +3,16 @@
     <section class="intro">
       <h1>Get the latest tech news!</h1>
     </section>
-    <section class="featured-posts">
-      <PostPreview
-        id="1"
-        thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
-        title="Cute Lovebird"
-        previewText="Manguito's Friends"
-      />
-      <PostPreview
-        id="2"
-        thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
-        title="Cute Lovebird"
-        previewText="Manguito's Friends"
-      />
-      <PostPreview
-        id="3"
-        thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
-        title="Cute Lovebird"
-        previewText="Manguito's Friends"
-      />
-    </section>
+    <PostList />
   </div>
 </template>
 
 <script>
-import PostPreview from "@/components/Posts/PostPreview.vue";
+import PostList from "@/components/Posts/PostList.vue";
 export default {
   name: "IndexPage",
   components: {
-    PostPreview,
+    PostList,
   },
 };
 </script>
