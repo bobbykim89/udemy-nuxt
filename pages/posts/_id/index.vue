@@ -1,12 +1,14 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title of the Post</h1>
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
       <div class="post-details">
-        <div class="post-detail">Last updated on XXX</div>
-        <div class="post-detail">Written by Name</div>
+        <div class="post-detail">
+          Last updated on{{ loadedPost.updatedDate }}
+        </div>
+        <div class="post-detail">Written by {{ loadedPost.author }}</div>
       </div>
-      <p class="post-content">content of post</p>
+      <p class="post-content">{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">
       <p>
@@ -18,6 +20,27 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        loadedPost: {
+          id: "1",
+          title: "First Lovebird (ID: " + context.route.params.id + ")",
+          previewText: "This is our first post!",
+          author: "Bobby",
+          updatedDate: new Date(),
+          content: "Dummy Data",
+          thumbnail:
+            "https://images.pexels.com/photos/10631001/pexels-photo-10631001.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+        },
+      });
+    }, 1000);
+  },
+};
+</script>
 
 <style scoped>
 .single-post-page {

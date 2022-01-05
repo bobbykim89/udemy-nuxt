@@ -1,25 +1,13 @@
 <template>
   <section class="post-list">
     <PostPreview
-      id="1"
+      v-for="post in posts"
+      :key="post.id"
+      :id="post.id"
       :is-admin="isAdmin"
-      thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
-      title="Cute Lovebird"
-      previewText="Manguito's Friends"
-    />
-    <PostPreview
-      id="2"
-      :is-admin="isAdmin"
-      thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
-      title="Cute Lovebird"
-      previewText="Manguito's Friends"
-    />
-    <PostPreview
-      id="3"
-      :is-admin="isAdmin"
-      thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
-      title="Cute Lovebird"
-      previewText="Manguito's Friends"
+      :thumbnail="post.thumbnail"
+      :title="post.title"
+      :previewText="post.previewText"
     />
   </section>
 </template>
@@ -35,6 +23,10 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false,
+    },
+    posts: {
+      type: Array,
+      required: true,
     },
   },
 };
