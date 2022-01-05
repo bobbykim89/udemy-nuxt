@@ -11,27 +11,35 @@ export default {
   components: {
     PostList,
   },
-  asyncData(context, callback) {
-    setTimeout(() => {
-      callback(null, {
-        loadedPosts: [
-          {
-            id: "1",
-            title: "First Lovebird",
-            previewText: "This is our first post!",
-            thumbnail:
-              "https://images.pexels.com/photos/10631001/pexels-photo-10631001.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-          },
-          {
-            id: "2",
-            title: "Second Lovebird",
-            previewText: "This is our first post!",
-            thumbnail:
-              "https://images.pexels.com/photos/10631001/pexels-photo-10631001.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-          },
-        ],
+  asyncData(context) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          loadedPosts: [
+            {
+              id: "1",
+              title: "First Lovebird",
+              previewText: "This is our first post!",
+              thumbnail:
+                "https://images.pexels.com/photos/10631001/pexels-photo-10631001.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+            },
+            {
+              id: "2",
+              title: "Second Lovebird",
+              previewText: "This is our first post!",
+              thumbnail:
+                "https://images.pexels.com/photos/10631001/pexels-photo-10631001.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+            },
+          ],
+        });
+      }, 1500);
+    })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        context.error(new Error());
       });
-    }, 1500);
   },
 };
 </script>
