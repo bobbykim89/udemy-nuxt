@@ -2,18 +2,21 @@
   <section class="post-list">
     <PostPreview
       id="1"
+      :is-admin="isAdmin"
       thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
       title="Cute Lovebird"
       previewText="Manguito's Friends"
     />
     <PostPreview
       id="2"
+      :is-admin="isAdmin"
       thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
       title="Cute Lovebird"
       previewText="Manguito's Friends"
     />
     <PostPreview
       id="3"
+      :is-admin="isAdmin"
       thumbnail="https://www.pexels.com/photo/flight-sky-bird-blue-10631001/"
       title="Cute Lovebird"
       previewText="Manguito's Friends"
@@ -27,6 +30,12 @@ export default {
   name: "IndexPage",
   components: {
     PostPreview,
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
