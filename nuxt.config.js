@@ -8,7 +8,7 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
+      { hid: "description", name: "description", content: "My blog :D" },
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [
@@ -20,8 +20,10 @@ export default {
     ],
   },
 
+  loading: { color: "#3B8070", height: "4px" },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["~/assets/styles/main.css"],
+  css: ["~assets/styles/main.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -37,4 +39,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  env: {},
+  transition: {
+    name: "fade",
+    mode: "out-in",
+  },
 };
