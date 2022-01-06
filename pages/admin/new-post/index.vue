@@ -16,15 +16,9 @@ export default {
   },
   methods: {
     onSubmitted(postData) {
-      axios
-        .post(
-          "https://udemy-nuxt-project-63b81-default-rtdb.firebaseio.com/posts.json",
-          { ...postData, updatedDate: new Date() }
-        )
-        .then((result) => {
-          this.$router.push("/admin");
-        })
-        .catch((e) => console.log(e));
+      this.$store.dispatch("addPost", postData).then(() => {
+        this.$router.push("/admin");
+      });
     },
   },
 };
