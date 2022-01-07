@@ -5,6 +5,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedPosts: [],
+      token: null,
     },
     mutations: {
       setPosts(state, posts) {
@@ -18,6 +19,9 @@ const createStore = () => {
           (post) => post.id === editedPost.id
         );
         state.loadedPosts[postIndex] = editedPost;
+      },
+      setToken(state, token) {
+        state.token = token;
       },
     },
     actions: {
@@ -63,6 +67,27 @@ const createStore = () => {
           )
           .then((res) => {
             vuexContext.commit("editPost", editedPost);
+          })
+          .catch((e) => console.log(e));
+      },
+      authenticateUser(vuexContext, authData) {
+        let authUrl =
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
+          process.env.fbAPIKey;
+        if (!authData.isLogin) {
+          authUrl =
+            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
+            process.env.fbAPIKey;
+        }
+        return axios
+          .post(authUrl, {
+            email: authData.email,
+            password: authData.password,
+            returnSecureToken: true,
+          })
+          .then((res) => {
+            console.log(res);
+            vuexContext.commit("setToken", res.data.idToken);
           })
           .catch((e) => console.log(e));
       },
