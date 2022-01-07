@@ -35,11 +35,17 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/axios"],
+
+  axios: {
+    credentials: false,
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-  env: {},
+  env: {
+    fbAPIKey: "AIzaSyCB6oVbCjcAaCXHUOLKa95xQUmm9ZrzfiI",
+  },
   transition: {
     name: "fade",
     mode: "out-in",

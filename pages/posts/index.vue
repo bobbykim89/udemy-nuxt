@@ -8,6 +8,7 @@
 import PostList from "@/components/Posts/PostList.vue";
 export default {
   name: "Blog",
+  middleware: "log",
   components: {
     PostList,
   },
