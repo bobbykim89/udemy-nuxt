@@ -23,6 +23,9 @@ const createStore = () => {
       setToken(state, token) {
         state.token = token;
       },
+      clearToken(state, token) {
+        state.token = null;
+      },
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
@@ -46,7 +49,8 @@ const createStore = () => {
         const createdPost = { ...post, updatedDate: new Date() };
         return axios
           .post(
-            "https://udemy-nuxt-project-63b81-default-rtdb.firebaseio.com/posts.json",
+            "https://udemy-nuxt-project-63b81-default-rtdb.firebaseio.com/posts.json?auth=" +
+              vuexContext.state.token,
             createdPost
           )
           .then((res) => {
@@ -62,7 +66,8 @@ const createStore = () => {
           .put(
             "https://udemy-nuxt-project-63b81-default-rtdb.firebaseio.com/posts/" +
               editedPost.id +
-              ".json",
+              ".json?auth=" +
+              vuexContext.state.token,
             editedPost
           )
           .then((res) => {
@@ -88,13 +93,40 @@ const createStore = () => {
           .then((res) => {
             console.log(res);
             vuexContext.commit("setToken", res.data.idToken);
+            localStorage.setItem("token", res.data.idToken);
+            localStorage.setItem(
+              "tokenExpiration",
+              new Date().getTime() + res.data.expiresIn * 1000
+            );
+            vuexContext.dispatch("setLogoutTimer", res.data.expiresIn * 1000);
           })
           .catch((e) => console.log(e));
+      },
+      setLogoutTimer(vuexContext, duration) {
+        setTimeout(() => {
+          vuexContext.commit("clearToken");
+        }, duration);
+      },
+      initAuth(vuexContext) {
+        const token = localStorage.getItem("token");
+        const expirationDate = localStorage.getItem("tokenExpiration");
+
+        if (new Date() > +expirationDate || !token) {
+          return;
+        }
+        vuexContext.dispatch(
+          "setLogoutTimer",
+          +expirationDate - new Date().getTime()
+        );
+        vuexContext.commit("setToken", token);
       },
     },
     getters: {
       loadedPosts(state) {
         return state.loadedPosts;
+      },
+      isAuthenticated(state) {
+        return state.token != null;
       },
     },
   });
