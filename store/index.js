@@ -104,6 +104,9 @@ const createStore = () => {
               "expirationDate",
               new Date().getTime() + +res.data.expiresIn * 1000
             );
+            return axios.post("http://localhost:3000/api/track-data", {
+              data: "Authenticated!",
+            });
           })
           .catch((e) => console.log(e));
       },
